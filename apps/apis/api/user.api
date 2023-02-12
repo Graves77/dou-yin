@@ -1,0 +1,48 @@
+type (
+	// 登录
+	LoginRequest {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	LoginResponse {
+		User_id uint64 `json:"user_id"`
+		Token   string `json:"token"`
+	}
+
+	// 注册
+	RegisterRequest {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	RegisterResponse {
+		User_id uint64 `json:"user_id"`
+		Token   string `json:"token"`
+	}
+
+	// 用户信息
+	UserInfoRequest {
+		Id    uint64 `json:"id"`
+		Token string `json:"token"`
+	}
+	UserInfoResponse {
+		Status_code    uint64 `json:"status_code"`
+		Status_msg     string `json:"status_msg"`
+		Id             string `json:"id"`
+		Name           uint64 `json:"name"`
+		Follow_count   uint64 `json:"follow_count"`
+		Follower_count uint64 `json:"follower_count"`
+		Is_follow      uint64 `json:"is_follow"`
+	}
+)
+
+service user {
+
+	@handler userLogin
+	post /douyin/user/login (LoginRequest) returns (LoginResponse)//登录
+	
+	@handler userRegister
+	post /douyin/user/register (RegisterRequest) returns (RegisterResponse)//注册
+	
+	@handler userInfo
+	get /douyin/user (UserInfoRequest) returns (UserInfoResponse)
+}

@@ -1,0 +1,14 @@
+Name: user
+Host: 0.0.0.0
+Port: 8888
+
+Mysql:
+  DataSource: root:zhongge666@tcp(8.134.120.93)/douyin_user?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+CacheRedis:
+  - Host: "43.139.72.246"
+    Pass: 6322
+    Type: node
+
+Auth:
+  AccessSecret: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
+  AccessExpire: HrzF0jDtZqG4YO4zkh1M9C-_TiCSTGDomOm_ZyUC
