@@ -1,0 +1,26 @@
+Name: user
+Host: 0.0.0.0
+Port: 8888
+UserRpc:
+  Etcd:
+    Hosts:
+      -  127.0.0.1:2379
+    Key: user.rpc
+    Timeout: 10000
+
+
+Mysql:
+  DataSource: root:zhongge666@tcp(8.134.120.93)/douyin_user?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+#CacheRedis:
+#  - Host: 43.139.72.246:6322
+#    Pass: 000415
+#    Type: node
+
+Redis:
+  Host: 8.134.120.93:6379
+  Type: node
+  Pass: "000415"
+
+JwtAuth:
+  AccessSecret: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
+  AccessExpire: 86400

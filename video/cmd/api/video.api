@@ -1,0 +1,66 @@
+syntax = "v1"
+
+info(
+	title: "type title here"
+	desc: "type desc here"
+	author: "type author here"
+	email: "type email here"
+	version: "type version here"
+)
+
+type PublishVideoActionReq {
+	Token string `json:"token"` // 用户鉴权token
+	Data  byte   `json:"data"`  // 视频数据
+	Title string `json:"title"` // 视频标题
+
+}
+
+type PublishVideoActionResp {
+	Status_code int32 `json:"status_code"`
+	Status_msg  int32 `json:"status_msg"`
+}
+
+type PublishVideoListReq {
+	UserId int64  `json:"userId"`
+	Token  string `json:"token"`
+}
+
+type PublishVideoListResp {
+	Videos      []Video `json:"videos"`
+	Status_code int32   `json:"status_code"`
+	Status_msg  int32   `json:"status_msg"`
+}
+
+type UserInfo {
+	UserId        int64  `json:"userId"`
+	UserName      string `json:"userName"`
+	FollowCount   int64  `json:"followCount"`
+	FollowerCount int64  `json:"followerCount"`
+	IsFollow      bool   `json:"isFollow"`
+}
+
+type Video {
+	Id            int64    `json:"id"`
+	Author        UserInfo `json:"userInfo"`
+	PlayUrl       string   `json:"playUrl"`
+	CoverUrl      string   `json:"coverUrl"`
+	FavoriteCount int64    `json:"favoriteCount"`
+	CommentCount  int64    `json:"commentCount"`
+	IsFavorite    bool     `json:"isFavorite"`
+	Title         string   `json:"title"`
+}
+
+// 视频相关服务
+@server (
+	prefix: /douyin/publish
+	group: video
+	jwt: JwtAuth
+	middleware: UploadFile
+)
+service api {
+	@handler publishVideo
+	post /action (PublishVideoActionReq) returns (PublishVideoActionResp)
+	
+	@handler publishVideoList
+	get /list/:userId (PublishVideoListReq) returns (PublishVideoListResp)
+}

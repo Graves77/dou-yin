@@ -1,0 +1,59 @@
+type (
+	// 登录
+	LoginRequest {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	LoginResponse {
+		Status_code int64  `json:"status_code"`
+		Status_msg  string `json:"status_msg"`
+		User_id     int64  `json:"user_id"`
+		Token       string `json:"token"`
+	}
+
+	// 注册
+	RegisterRequest {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	RegisterResponse {
+		Status_code int64  `json:"status_code"`
+		Status_msg  string `json:"status_msg"`
+		User_id     int64  `json:"user_id"`
+		Token       string `json:"token"`
+	}
+
+	// 用户信息
+	UserInfoResponse {
+		Status_code    int64  `json:"status_code"`
+		Status_msg     string `json:"status_msg"`
+		Id             int64  `json:"id"`
+		Name           string `json:"name"`
+		Follow_count   int64  `json:"follow_count"`
+		Follower_count int64  `json:"follower_count"`
+		Is_follow      bool   `json:"is_follow"`
+	}
+)
+@server (
+	prefix: /douyin/user
+	group: user
+)
+service user {
+	
+	@handler userLogin
+	post /login (LoginRequest) returns (LoginResponse)//登录
+	
+	@handler userRegister
+	post /register (RegisterRequest) returns (RegisterResponse)//注册
+	
+}
+
+@server (
+	prefix: /douyin/user
+	group: user
+	jwt: JwtAuth
+)
+service user {
+	@handler userInfo
+	get / () returns (UserInfoResponse)
+}
