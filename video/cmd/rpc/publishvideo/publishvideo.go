@@ -4,20 +4,21 @@
 package publishvideo
 
 import (
-	video2 "awesomeProject/dou-yin/video/cmd/rpc/types/video"
 	"context"
+
+	"awesomeProject/dou-yin/video/cmd/rpc/types/video"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 )
 
 type (
-	DouyinPublishActionRequest  = video2.DouyinPublishActionRequest
-	DouyinPublishActionResponse = video2.DouyinPublishActionResponse
-	DouyinPublishListRequest    = video2.DouyinPublishListRequest
-	DouyinPublishListResponse   = video2.DouyinPublishListResponse
-	User                        = video2.User
-	Video                       = video2.Video
+	DouyinPublishActionRequest  = video.DouyinPublishActionRequest
+	DouyinPublishActionResponse = video.DouyinPublishActionResponse
+	DouyinPublishListRequest    = video.DouyinPublishListRequest
+	DouyinPublishListResponse   = video.DouyinPublishListResponse
+	User                        = video.User
+	Video                       = video.Video
 
 	PublishVideo interface {
 		PublishVideoAction(ctx context.Context, in *DouyinPublishActionRequest, opts ...grpc.CallOption) (*DouyinPublishActionResponse, error)
@@ -36,11 +37,11 @@ func NewPublishVideo(cli zrpc.Client) PublishVideo {
 }
 
 func (m *defaultPublishVideo) PublishVideoAction(ctx context.Context, in *DouyinPublishActionRequest, opts ...grpc.CallOption) (*DouyinPublishActionResponse, error) {
-	client := video2.NewPublishVideoClient(m.cli.Conn())
+	client := video.NewPublishVideoClient(m.cli.Conn())
 	return client.PublishVideoAction(ctx, in, opts...)
 }
 
 func (m *defaultPublishVideo) PublishVideoList(ctx context.Context, in *DouyinPublishListRequest, opts ...grpc.CallOption) (*DouyinPublishListResponse, error) {
-	client := video2.NewPublishVideoClient(m.cli.Conn())
+	client := video.NewPublishVideoClient(m.cli.Conn())
 	return client.PublishVideoList(ctx, in, opts...)
 }

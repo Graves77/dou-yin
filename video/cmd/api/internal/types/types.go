@@ -2,9 +2,9 @@
 package types
 
 type PublishVideoActionReq struct {
-	Token string `json:"token"` // 用户鉴权token
-	Data  byte   `json:"data"`  // 视频数据
-	Title string `json:"title"` // 视频标题
+	PlayUrl  string `json:"playUrl"`
+	CoverUrl string `json:"coverUrl"`
+	Title    string `json:"title"`
 }
 
 type PublishVideoActionResp struct {
@@ -13,8 +13,7 @@ type PublishVideoActionResp struct {
 }
 
 type PublishVideoListReq struct {
-	UserId int64  `json:"userId"`
-	Token  string `json:"token"`
+	UserId int64 `json:"userId"`
 }
 
 type PublishVideoListResp struct {

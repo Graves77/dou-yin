@@ -2,9 +2,10 @@
 package handler
 
 import (
-	video2 "awesomeProject/dou-yin/video/cmd/api/internal/handler/video"
-	"awesomeProject/dou-yin/video/cmd/api/internal/svc"
 	"net/http"
+
+	video "awesomeProject/dou-yin/video/cmd/api/internal/handler/video"
+	"awesomeProject/dou-yin/video/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -17,12 +18,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/action",
-					Handler: video2.PublishVideoHandler(serverCtx),
+					Handler: video.PublishVideoHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/list/:userId",
-					Handler: video2.PublishVideoListHandler(serverCtx),
+					Handler: video.PublishVideoListHandler(serverCtx),
 				},
 			}...,
 		),
