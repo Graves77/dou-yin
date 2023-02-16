@@ -23,7 +23,26 @@ func NewPublishVideoListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *PublishVideoListLogic) PublishVideoList(in *video.DouyinPublishListRequest) (*video.DouyinPublishListResponse, error) {
-	// todo: add your logic here and delete this line
+	videos, err := l.svcCtx.VideoModel.FindListByUid(l.ctx, in.UserId)
+	if err != nil {
+		return nil, err
+	}
+	videoresp := make([]*video.Video, len(videos))
 
-	return &video.DouyinPublishListResponse{}, nil
+	for i, v := range videos {
+		videoresp[i] = &video.Video{
+			Id:            v.VideoId,
+			UserId:        v.UserId,
+			PlayUrl:       v.PlayUrl,
+			CoverUrl:      v.CoverUrl,
+			FavoriteCount: v.FavoriteCount,
+			CommentCount:  v.CommentCount,
+			IsFavorite:    false,
+			Title:         v.Title,
+		}
+	}
+
+	return &video.DouyinPublishListResponse{
+		VideoList: videoresp,
+	}, nil
 }

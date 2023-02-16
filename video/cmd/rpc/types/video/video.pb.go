@@ -214,7 +214,7 @@ type DouyinPublishListResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	VideoList *Video `protobuf:"bytes,1,opt,name=video_list,json=videoList,proto3" json:"video_list,omitempty"` // 用户发布的视频列表
+	VideoList []*Video `protobuf:"bytes,1,opt,name=video_list,json=videoList,proto3" json:"video_list,omitempty"` // 用户发布的视频列表
 }
 
 func (x *DouyinPublishListResponse) Reset() {
@@ -249,7 +249,7 @@ func (*DouyinPublishListResponse) Descriptor() ([]byte, []int) {
 	return file_video_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *DouyinPublishListResponse) GetVideoList() *Video {
+func (x *DouyinPublishListResponse) GetVideoList() []*Video {
 	if x != nil {
 		return x.VideoList
 	}

@@ -3,8 +3,8 @@ package logic
 import (
 	"awesomeProject/dou-yin/video/cmd/rpc/internal/svc"
 	"awesomeProject/dou-yin/video/cmd/rpc/types/video"
+	"awesomeProject/dou-yin/video/model"
 	"context"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -23,7 +23,20 @@ func NewPublishVideoActionLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *PublishVideoActionLogic) PublishVideoAction(in *video.DouyinPublishActionRequest) (*video.DouyinPublishActionResponse, error) {
-	// todo: add your logic here and delete this line
-
-	return &video.DouyinPublishActionResponse{}, nil
+	v, err := l.svcCtx.VideoModel.Insert(l.ctx, &model.Videos{
+		UserId:   in.UserId,
+		PlayUrl:  in.PlayUrl,
+		CoverUrl: in.CoverUrl,
+		Title:    in.Title,
+	})
+	if err != nil {
+		return nil, err
+	}
+	id, _ := v.LastInsertId()
+	return &video.DouyinPublishActionResponse{
+		UserId:   id,
+		PlayUrl:  in.PlayUrl,
+		CoverUrl: in.CoverUrl,
+		Title:    in.Title,
+	}, nil
 }

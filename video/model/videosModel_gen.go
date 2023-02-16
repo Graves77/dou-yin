@@ -28,6 +28,7 @@ type (
 	videosModel interface {
 		Insert(ctx context.Context, data *Videos) (sql.Result, error)
 		FindOne(ctx context.Context, videoId int64) (*Videos, error)
+		FindListByUid(ctx context.Context, userId int64) ([]*Videos, error)
 		Update(ctx context.Context, data *Videos) error
 		Delete(ctx context.Context, videoId int64) error
 	}
@@ -79,6 +80,15 @@ func (m *defaultVideosModel) FindOne(ctx context.Context, videoId int64) (*Video
 	default:
 		return nil, err
 	}
+}
+
+func (m *defaultVideosModel) FindListByUid(ctx context.Context, userId int64) ([]*Videos, error) {
+	var resp []*Videos
+	err := m.QueryRowsNoCacheCtx(ctx, &resp, fmt.Sprintf("select %s from %s where `author_id` = ?", videosRows, m.table), userId)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 func (m *defaultVideosModel) Insert(ctx context.Context, data *Videos) (sql.Result, error) {
