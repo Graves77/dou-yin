@@ -1,0 +1,8 @@
+Name: video.mq
+Mq:
+  Username: quest
+  Password: "quest"
+  Host: 8.134.120.93
+  Port: 15672
+  ListenerQueues:
+    - Name: testqueue
