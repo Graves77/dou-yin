@@ -1,3 +1,11 @@
-Name: api
+Name: video
 Host: 0.0.0.0
-Port: 8888
+Port: 8889
+
+UserRpc:
+  Etcd:
+    Hosts:
+      -  127.0.0.1:2379
+    Key: video.rpc
+    Timeout: 10000
+    NonBlock: true
