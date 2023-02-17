@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"awesomeProject/dou-yin/apps/user/cmd/rpc/types/user"
 	"awesomeProject/dou-yin/video/cmd/api/internal/config"
 	"awesomeProject/dou-yin/video/cmd/api/internal/middleware"
 	"awesomeProject/dou-yin/video/cmd/rpc/publishvideo"
@@ -15,6 +16,7 @@ type ServiceContext struct {
 	UploadFile rest.Middleware
 	Redis      *redis.Redis
 	VideoRpc   video.PublishVideoClient
+	UserRpc    user.RpcClient
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {

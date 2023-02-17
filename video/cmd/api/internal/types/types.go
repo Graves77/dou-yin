@@ -8,8 +8,9 @@ type PublishVideoActionReq struct {
 }
 
 type PublishVideoActionResp struct {
-	Status_code int32 `json:"status_code"`
-	Status_msg  int32 `json:"status_msg"`
+	Status_code int32  `json:"status_code"`
+	Status_msg  string `json:"status_msg"`
+	CoverUrl    string `json:"coverUrl"`
 }
 
 type PublishVideoListReq struct {
@@ -19,7 +20,7 @@ type PublishVideoListReq struct {
 type PublishVideoListResp struct {
 	Videos      []Video `json:"videos"`
 	Status_code int32   `json:"status_code"`
-	Status_msg  int32   `json:"status_msg"`
+	Status_msg  string  `json:"status_msg"`
 }
 
 type UserInfo struct {

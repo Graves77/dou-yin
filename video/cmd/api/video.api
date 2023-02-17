@@ -15,8 +15,9 @@ type PublishVideoActionReq {
 }
 
 type PublishVideoActionResp {
-	Status_code int32 `json:"status_code"`
-	Status_msg  int32 `json:"status_msg"`
+	Status_code int32  `json:"status_code"`
+	Status_msg  string `json:"status_msg"`
+	CoverUrl    string `json:"coverUrl"`
 }
 
 type PublishVideoListReq {
@@ -26,7 +27,7 @@ type PublishVideoListReq {
 type PublishVideoListResp {
 	Videos      []Video `json:"videos"`
 	Status_code int32   `json:"status_code"`
-	Status_msg  int32   `json:"status_msg"`
+	Status_msg  string  `json:"status_msg"`
 }
 
 type UserInfo {

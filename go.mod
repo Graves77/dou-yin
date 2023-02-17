@@ -3,8 +3,10 @@ module awesomeProject/dou-yin
 go 1.19
 
 require (
+	github.com/garyburd/redigo v1.6.4
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/pkg/errors v0.9.1
+	github.com/streadway/amqp v1.0.0
 	github.com/zeromicro/go-zero v1.4.4
 	google.golang.org/grpc v1.52.3
 	google.golang.org/protobuf v1.28.1
@@ -20,10 +22,8 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/felixge/fgprof v0.9.3 // indirect
-	github.com/garyburd/redigo v1.6.4 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/go-redis/redis v6.15.9+incompatible // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
