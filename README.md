@@ -6,3 +6,6 @@
 ### 2/12 user进一步优化
 ### 2/13 user的rpc部分完成
 ### 2/15 user基本完成，video开始搭建
+### 2/16 video的api和rpc的基本搭建
+### 2/17 video基本功能实现
+### 2/19 like的搭建
