@@ -21,13 +21,13 @@ func (c *MqConf) GetUrl() string {
 
 type Config struct {
 	rest.RestConf
+	UserRpc  zrpc.RpcClientConf
 	VideoRpc zrpc.RpcClientConf
 	JwtAuth  struct {
 		AccessSecret string
 		AccessExpire int64
 	}
-	UserRpc zrpc.RpcClientConf
-	Redis   redis.RedisConf
+	Redis redis.RedisConf
 
 	RabbitMQ MqConf
 }

@@ -1,0 +1,28 @@
+Name: like.mq
+Mq:
+  Username: quest
+  Password: "quest"
+  Host: 8.134.120.93
+  Port: 15672
+  ListenerQueues:
+    - Name: Likequeue
+      Durable: false
+      AutoDelete: false
+      Exclusive: false
+      NoLocal: false
+      NoWait: false
+      ConsumerConf:
+        AutoAck: true
+      BindConf:
+        Exchange: LikeExchange
+  Exchange:
+    Name: LikeExchange
+    Type: fanout
+    Durable: true
+    AutoDelete: false
+    Internal: false
+    NoWait: false
+LikeRpc:
+  Endpoints:
+    - 127.0.0.1:8886
+  NonBlock: false

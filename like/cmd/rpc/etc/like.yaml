@@ -1,0 +1,25 @@
+Name: like.rpc
+ListenOn: 127.0.0.1:8886
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: like.rpc
+
+
+RabbitMQ:
+  Username: guest
+  Password: 'guest'
+  Host: 8.134.120.93
+  Port: 15672
+
+Mysql:
+  DataSource: root:zhongge666@tcp(8.134.120.93)/douyin_like?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: 8.134.120.93:6379
+    Type: node
+    Pass: "000415"
+
+JwtAuth:
+  AccessSecret: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
+  AccessExpire: 86400

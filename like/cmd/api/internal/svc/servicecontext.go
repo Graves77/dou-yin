@@ -2,8 +2,7 @@ package svc
 
 import (
 	"awesomeProject/dou-yin/apps/user/cmd/rpc/types/user"
-	"awesomeProject/dou-yin/video/cmd/api/internal/config"
-	"awesomeProject/dou-yin/video/cmd/api/internal/middleware"
+	"awesomeProject/dou-yin/like/cmd/api/internal/config"
 	"awesomeProject/dou-yin/video/cmd/rpc/publishvideo"
 	"awesomeProject/dou-yin/video/cmd/rpc/types/video"
 	"github.com/streadway/amqp"
@@ -44,10 +43,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	}
 
 	return &ServiceContext{
-		Config:     c,
-		UploadFile: middleware.NewUploadFileMiddleware().Handle,
-		Redis:      redis.New(c.Redis.Host),
-		VideoRpc:   publishvideo.NewPublishVideo(zrpc.MustNewClient(c.VideoRpc)),
-		RabbitMQ:   rabbitMQ,
+		Config:   c,
+		Redis:    redis.New(c.Redis.Host),
+		VideoRpc: publishvideo.NewPublishVideo(zrpc.MustNewClient(c.VideoRpc)),
+		RabbitMQ: rabbitMQ,
 	}
 }
