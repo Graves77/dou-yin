@@ -1,0 +1,31 @@
+    // 视频信息结构
+    type Video {
+        Id            int64  `json:"id"`
+        Author        User   `json:"author"`
+        PlayUrl       string `json:"play_url"`
+        CoverUrl      string `json:"cover_url"`
+        FavoriteCount int64  `json:"favorite_count"`
+        CommentCount  int64  `json:"comment_count"`
+        IsFavotite    bool   `json:"is_favorite"`
+        VideoTitle    string `json:"title"`
+    }
+
+    type VideoTest {
+        Id            int64  `form:"id" json:"id"`
+        Author        User   `form:"author" json:"author"`
+        PlayUrl       string `form:"play_url" json:"play_url"`
+        CoverUrl      string `form:"cover_url" json:"cover_url"`
+        FavoriteCount int64  `form:"favorite_count" json:"favorite_count"`
+        CommentCount  int64  `form:"comment_count" json:"comment_count"`
+        IsFavotite    bool   `form:"is_favorite" json:"is_favorite"`
+    }
+
+
+    //用户信息接口
+    type User {
+        UserId        int64  `gorm:"column:user_id"        json:"id"               form:"user_id"        bson:"user_id"`
+        Name          string `gorm:"column:user_nick_name" json:"name"             form:"name"           bson:"name"`
+        FollowCount   int64  `gorm:"column:follow_count"   json:"follow_count"     form:"follow_count"   bson:"follow_count"`
+        FollowerCount int64  `gorm:"column:follower_count" json:"follower_count"   form:"follower_count" bson:"follower_count"`
+        IsFollow      bool   `json:"is_follow"             form:"is_follow"        bson:"is_follow"`
+    }

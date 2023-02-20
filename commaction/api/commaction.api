@@ -1,0 +1,98 @@
+syntax = "v1"
+
+info(
+	title: "type title here"
+	desc: "type desc here"
+	author: "type author here"
+	email: "type email here"
+	version: "type version here"
+)
+import (
+	"commondatastructure.api"  // 公用的数据结构
+)
+// 互动方向
+// 赞操作
+type FavoriteActionHandlerRequest {
+	Token      string `form:"token"`
+	VideoId    int64  `form:"video_id"`
+	ActionType int32  `form:"action_type"`
+}
+
+type FavoriteActionHandlerResponse {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg"`
+}
+
+// 喜欢列表
+type FavoriteListRegisterHandlerRequest {
+	UserID int64  `form:"user_id"`
+	Token  string `form:"token,optional"`
+}
+
+type FavoriteListRegisterHandlerResponse {
+	StatusCode int32   `json:"status_code"`
+	StatusMsg  string  `json:"status_msg"`
+	VideoList  []Video `json:"video_list"`
+}
+
+// 评论操作
+type Comment {
+	Id         int64  `json:"id"          form:"id"         bson:"_id"`
+	VideoId    int64  `json:"video_id"    form:"video_id"    bson:"video_id"` //视频id
+	User       User   `json:"user"        form:"user"        bson:"user"`
+	Content    string `json:"content"     form:"content"     bson:"content"`
+	CreateDate string `json:"create_date" form:"create_date" bson:"create_date"`
+}
+
+type CommentResp {
+	Id         int64  `json:"id"`
+	User       User   `json:"user"`
+	Content    string `json:"content"`
+	CreateDate string `json:"create_date"`
+}
+
+type CommmentActionHandlerRequest {
+	Token       string `form:"token"`
+	VideoId     int64  `form:"video_id"`
+	ActionType  int32  `form:"action_type"`
+	CommentText string `form:"comment_text,optional"`
+	CommentId   int64  `form:"comment_id,optional"`
+}
+
+type CommmentActionHandlerResponse {
+	StatusCode int32       `json:"status_code"`
+	StatusMsg  string      `json:"status_msg"`
+	Comment    CommentResp `json:"comment"`
+}
+
+// 视频评论列表
+type CommmentListHandlerRequest {
+	Token   string `form:"token"`
+	VideoId int64  `form:"video_id"`
+}
+
+type CommmentListHandlerResponse {
+	StatusCode  int32         `json:"status_code"`
+	StatusMsg   string        `json:"status_msg"`
+	CommentList []CommentResp `json:"comment_list"`
+}
+
+@server(
+	group: CommActionInterface
+)
+
+service CommActionInterface {
+	//互动接口
+	// 赞接口
+	@handler FavoriteActionHandler
+	post /douyin/favorite/action(FavoriteActionHandlerRequest) returns (FavoriteActionHandlerResponse)
+	// 喜欢列表
+	@handler FavoriteListRegisterHandler
+	get /douyin/favorite/list(FavoriteListRegisterHandlerRequest) returns (FavoriteListRegisterHandlerResponse)
+	// 评论操作
+	@handler CommmentActionHandler
+	post /douyin/comment/action (CommmentActionHandlerRequest) returns (CommmentActionHandlerResponse)
+	// 视频评论列表
+	@handler CommmentListHandler
+	get /douyin/comment/list (CommmentListHandlerRequest) returns (CommmentListHandlerResponse)
+}

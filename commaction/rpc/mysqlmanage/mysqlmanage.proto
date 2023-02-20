@@ -1,0 +1,234 @@
+syntax = "proto3";
+
+package mysqlmanageserver;
+  
+// protoc-gen-go 版本大于1.4.0, proto文件需要加上go_package,否则无法生成
+option go_package = "./mysqlmanageserver";
+  
+message FeedUserInfo {
+	int64 UserID = 1;        // 用户ID
+	string UserNickName = 2;   // 用户名称
+	int64 FollowCount = 3;     // 关注总数
+	int64 FollowerCount = 4;   // 粉丝总数
+	bool IsFollow = 5;         // true-已关注
+}
+
+// 取流接口获取用户信息
+message GetFeedUserInfoRequest {
+    int64 userID = 1;
+}
+
+message GetFeedUserInfoResponse {
+    FeedUserInfo FeedUserInfo = 1;
+}
+
+// 取流接口获取视频列表
+message GetFeedVideoListRequest {
+    int64 userId = 1;
+}
+
+message GetFeedVideoListResponse {
+    repeated VideoInfo videoInfo = 1;
+}
+
+message UserLoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserLoginResponse {
+    int64 userId = 1;
+}
+
+message UserRegisterRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserRegisterResponse {
+    int64 userId = 1;
+}
+
+
+// 上传视频的结构体定义
+message PublishActionVideoInfo{
+	int32  Video_id = 1;       
+	int64 Author_id =2;     
+    string Play_url=3;       // 视频播放地址
+	string Cover_url=4;       // 视频封面地址
+	int64 Favorite_count=5;   // 视频的点赞总数
+	int64 Comment_count=6;    // 视频的评论总数
+	string Video_title=7;     // 视频标题
+}
+
+// 视频上传接口创建视频信息
+message CreatePublishActionViedeInfoRequest {
+    PublishActionVideoInfo VideoInfo = 1;
+}
+
+message CreatePublishActionViedeInfoResponse {
+
+}
+
+message User_inf {
+    Users users = 1;
+    bool isFollow = 2;
+}
+
+message Users {
+    int64 userId = 1;
+    string userNickName = 2;
+    int64 followCount = 3;
+    int64 followerCount = 4;
+}
+
+message CheckUserInfRequest {
+    int64 userId = 1;
+    int64 followerId = 2;
+}
+
+message CheckUserInfResponse {
+    User_inf user = 1;
+}
+
+message CheckIsFollowRequest {
+    int64 userId = 1;
+    int64 followerId = 2;
+}
+
+message CheckIsFollowResponse {
+    bool ok = 1;
+}
+
+message IsFavotiteRequest {
+    int64 userId = 1;
+    int64 videoId = 2;
+}
+
+message IsFavotiteResponse {
+    bool ok = 1;
+}
+
+message VideoInfo {
+    int64 videoId = 1;       
+	int64 authorId = 2;      
+	string playUrl = 3;       
+	string coverUrl = 4;  
+	int64 favoriteCount = 5; 
+	int64 commentCount = 6;
+	bool isFavotite = 7; 
+	string videoTitle = 8;
+}
+
+message GetVideoListRequest {
+    int64 authorId = 1;
+    int64 userId = 2;
+}
+
+message GetVideoListResponse {
+    repeated VideoInfo videoInfo = 1;
+}
+
+message VideoNumRequest {
+    int64 authorId = 1;
+}
+
+message VideoNumResponse {
+    int64 num = 1;
+}
+  
+
+message RelationActionRequest{
+    int64 UserID =1;
+    int64 ToUserID =2;
+    int32 ActionType =3;
+}
+message RelationActionResponse{
+    bool ok=1;
+}
+message RelationFollowerListRequest{
+    int64 LoginUserID = 1;
+    int64 UserID = 2;
+}
+message RelationFollowerListResponse{
+    repeated RelationUser RelationUser = 1;
+}
+message RelationFollowListRequest{
+    int64 LoginUserID = 1;
+    int64 UserID = 2;
+}
+message RelationFollowListResponse{
+    repeated RelationUser RelationUser = 1;
+}
+
+message RelationUser  {
+    int64 Id            =1;
+    string Name         =2;
+    int64 FollowCount   =3;
+    int64 FollowerCount =4;
+    bool IsFollow       =5;
+}
+
+message FavoriteVideoNumRequest {
+    int64 userID = 1;
+}
+
+message FavoriteVideoNumResponse {
+    int64 n = 1;
+}
+
+message GetFavoriteVideoListRequest {
+    int64 userID = 1;
+}
+
+message GetFavoriteVideoListResponse {
+    repeated VideoInfo videoInfo = 1;
+}
+
+message AddVideoFavoriteRequest {
+    int64 userID = 1;
+    int64 videoID = 2;
+}
+
+message AddVideoFavoriteResponse {
+    int64 ok = 1;
+}
+
+message SubVideoFavoriteRequest {
+    int64 userID = 1;
+    int64 videoID = 2;
+}
+
+message SubVideoFavoriteResponse {
+    int64 ok = 1;
+}
+
+
+
+
+service MySQLManageServer {
+    // 获得用户信息
+    rpc CheckUserInf(CheckUserInfRequest) returns(CheckUserInfResponse);
+    // 发布列表视频信息
+    rpc GetVideoList(GetVideoListRequest) returns(GetVideoListResponse);
+    // 发布列表视频数量
+    rpc VideoNum(VideoNumRequest) returns(VideoNumResponse);
+
+
+    //关注、取消关注
+    rpc RelationAction(RelationActionRequest) returns(RelationActionResponse);
+    //粉丝列表
+    rpc RelationFollowerList(RelationFollowerListRequest) returns(RelationFollowerListResponse);
+    //关注列表
+    rpc RelationFollowList(RelationFollowListRequest) returns(RelationFollowListResponse);
+    
+
+    //喜欢视频数量
+    rpc FavoriteVideoNum(FavoriteVideoNumRequest) returns(FavoriteVideoNumResponse);
+    //获取喜欢列表
+    rpc GetFavoriteVideoList(GetFavoriteVideoListRequest) returns(GetFavoriteVideoListResponse);
+    //点赞
+    rpc AddVideoFavorite(AddVideoFavoriteRequest) returns(AddVideoFavoriteResponse);
+    //取消点赞
+    rpc SubVideoFavorite(SubVideoFavoriteRequest) returns(SubVideoFavoriteResponse);
+}
