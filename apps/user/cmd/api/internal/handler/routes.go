@@ -2,10 +2,9 @@
 package handler
 
 import (
-	"net/http"
-
-	user "awesomeProject/dou-yin/apps/user/cmd/api/internal/handler/user"
+	"awesomeProject/dou-yin/apps/user/cmd/api/internal/handler/user"
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/svc"
+	"net/http"
 
 	"github.com/zeromicro/go-zero/rest"
 )

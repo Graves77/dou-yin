@@ -1,12 +1,11 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/config"
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/handler"
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/svc"
+	"flag"
+	"fmt"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

@@ -1,0 +1,135 @@
+import (
+	"commondatastructure.api"  // 公用的数据结构
+)
+// 社交方向
+// 关系操作
+type RelationActionHandlerRequest {
+	Token       string `form:"token"`
+	To_user_id  int64  `form:"to_user_id"`
+	Sction_type int32  `form:"action_type"`
+}
+
+type RelationActionHandlerResponse {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg"`
+}
+
+// 用户关注列表
+type RelationFollowListHandlerRequest {
+	Token  string `form:"token"`
+	UserId int64  `form:"user_id"`
+}
+
+type RelationFollowListHandlerResponse {
+	StatusCode int32          `json:"status_code"`
+	StatusMsg  string         `json:"status_msg"`
+	UserList   []RelationUser `json:"user_list"`
+}
+
+// 用户粉丝列表
+type RelationFollowerListHandlerRequest {
+	Token  string `form:"token"`
+	UserId int64  `form:"user_id"`
+}
+
+type RelationFollowerListHandlerResponse {
+	StatusCode int32          `json:"status_code"`
+	StatusMsg  string         `json:"status_msg"`
+	UserList   []RelationUser `json:"user_list"`
+}
+type RelationUser {
+	Id            int64  `json:"id" gorm:"column:user_id"`
+	Name          string `json:"name" gorm:"column:user_nick_name"`
+	FollowCount   int64  `json:"follow_count" gorm:"column:follow_count"`
+	FollowerCount int64  `json:"follower_count" gorm:"column:follower_count"`
+	IsFollow      bool   `json:"is_follow"`
+}
+
+type Message {
+	Id         int64  `json:"id"                    form:"id"                    bson:"_id"`
+	ToUserId   int64  `json:"to_user_id"            form:"to_user_id"            bson:"to_user_id"`
+	FromUserId int64  `json:"from_user_id"          form:"from_user_id"          bson:"from_user_id"`
+	Content    string `json:"content"               form:"content"               bson:"content"`
+	CreateTime string `json:"create_time,optional"  form:"create_time,optional"  bson:"create_time"`
+}
+
+type SingleMessage {
+	Id         int64  `json:"id"`
+	Content    string `json:"content"`
+	CreateTime string `json:"create_time"`
+}
+
+type MessageChatHandlerRequest {
+	Token    string `form:"token"`
+	ToUserId int64  `form:"to_user_id"`
+}
+
+type MessageChatHandlerResponse {
+	StatusCode  int32           `json:"status_code"`
+	StatusMsg   string          `json:"status_msg"`
+	MessageList []SingleMessage `json:"message_list"`
+}
+
+type MessageActionHandlerRequest {
+	Token      string `form:"token"`
+	ToUserId   int64  `form:"to_user_id"`
+	ActionType int32  `form:"action_type"`
+	Content    string `form:"content"`
+}
+
+type MessageActionHandlerResponse {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg"`
+}
+
+@server(
+	group: RelationFollowInterface
+)
+
+service RelationFollowInterface {
+	// 社交接口
+	// 关系操作
+	@handler RelationActionHandler
+	post /douyin/relation/action(RelationActionHandlerRequest) returns (RelationActionHandlerResponse)
+	// 用户关注列表
+	@handler RelationFollowListHandler
+	get /douyin/relation/follow/list(RelationFollowListHandlerRequest) returns (RelationFollowListHandlerResponse)
+	// 用户粉丝列表
+	@handler RelationFollowerListHandler
+	get /douyin/relation/follower/list(RelationFollowerListHandlerRequest) returns (RelationFollowerListHandlerResponse)
+	//用户好友列表
+	@handler RelationFriendListHandler
+	get /douyin/relation/friend/list(RelationFriendListHandlerRequest) returns (RelationFriendListHandlerResponse)
+	
+	// // 方案一
+	// // socket消息服务中心
+	
+	// // 方案二
+	// // 聊天记录
+	@handler MessageChatHandler
+	get /douyin/message/chat(MessageChatHandlerRequest) returns (MessageChatHandlerResponse)
+	// // 消息操作
+	@handler MessageActionHandler
+	post /douyin/message/action(MessageActionHandlerRequest) returns (MessageActionHandlerResponse)
+}
+
+type RelationFriendListHandlerRequest {
+	Token  string `form:"token"`
+	UserId int64  `form:"user_id"`
+}
+type RelationFriendListHandlerResponse {
+	StatusCode int32        `json:"status_code"`
+	StatusMsg  string       `json:"status_msg"`
+	Userlist   []FriendUser `json:"user_list"`
+}
+
+type FriendUser {
+	Id            int64  `json:"id" gorm:"column:user_id"`
+	Name          string `json:"name" gorm:"column:user_nick_name"`
+	FollowCount   int64  `json:"follow_count" gorm:"column:follow_count"`
+	FollowerCount int64  `json:"follower_count" gorm:"column:follower_count"`
+	IsFollow      bool   `json:"is_follow"`
+	Avatar        string `json:"avatar"`  //用户头像url
+	Message       string `json:"message"` // 和该好友的最新聊天消息
+	MsgType       int64  `json:"msgType"` //// message消息的类型，0 => 当前请求用户接收的消息， 1 => 当前请求用户发送的消息
+}

@@ -1,0 +1,48 @@
+MySQL:
+ UserName: root
+ PassWord: zhongge666
+ Host: 8.134.120.93
+ Port: 3306
+ DBname: douyin
+ TimeOut: 10s
+#  MaxIdleConns: 200
+#  MaxOpenConns: 200
+#  ConnMaxLifetime: 5
+
+
+Minio:
+ Endpoint: 8.134.120.93:9001 # 用的API端口，不是Console
+ AccessKeyID: minio
+ SecretAccessKey: minio123
+ UseSSL: false
+ BucketName: "testminio"
+
+
+MongoDB:
+ mongoUserName: admin
+ mongoPwd: 119149
+ mongoUrl: 8.134.120.93
+ mongoPort: 27017
+ mongoDatabase: "douyin"
+
+gormpool:
+ MaxIdleConns: 25
+ MaxOpenConns: 25
+ ConnMaxLifetime: 5
+
+ RabbitMQ:
+  Username: guest
+  Password: 'guest'
+  Host: 8.134.120.93
+  Port: 15672
+
+
+ CacheRedis:
+  - Host: 8.134.120.93:6379
+    Type: node
+    Pass: "000415"
+
+
+ JwtAuth:
+  AccessSecret: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
+  AccessExpire: 86400

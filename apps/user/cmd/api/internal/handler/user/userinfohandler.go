@@ -1,10 +1,10 @@
 package user
 
 import (
-	"net/http"
-
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/logic/user"
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/svc"
+	"net/http"
+
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 

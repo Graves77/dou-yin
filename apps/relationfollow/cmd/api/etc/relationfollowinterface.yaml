@@ -1,0 +1,23 @@
+Name: RelationFollowInterface
+Host: 0.0.0.0
+Port: 8810
+Timeout: 15000  #设置http请求最长的超时时间
+Log:
+  Encoding: plain
+
+
+MySQLManageRpc:
+  NonBlock: true  #设置弱依赖，当prc没有启动时，也允许运行api，不设置改选项，rpc没有期待，api也会报错
+  Timeout: 10000 #设置rpc响应的超时时间
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: mysqlmanage.rpc
+
+MongoDBManageRpc:
+  NonBlock: true  #设置弱依赖，当prc没有启动时，也允许运行api，不设置改选项，rpc没有期待，api也会报错
+  Timeout: 10000
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    key: mongodbmanage.rpc

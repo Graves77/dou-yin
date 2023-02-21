@@ -4,7 +4,7 @@ import (
 	"awesomeProject/dou-yin/apps/user/cmd/rpc/internal/svc"
 	"awesomeProject/dou-yin/apps/user/cmd/rpc/types/user"
 	"awesomeProject/dou-yin/apps/user/model"
-	"awesomeProject/dou-yin/pkg/tool"
+	"awesomeProject/dou-yin/common/tool"
 	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"

@@ -4,7 +4,7 @@ import (
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/svc"
 	"awesomeProject/dou-yin/apps/user/cmd/api/internal/types"
 	"awesomeProject/dou-yin/apps/user/cmd/rpc/types/user"
-	"awesomeProject/dou-yin/pkg/jwtx"
+	"awesomeProject/dou-yin/common/jwtx"
 	"context"
 	"time"
 
