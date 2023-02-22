@@ -11,7 +11,7 @@ CREATE TABLE `favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Table structure for follow_and_follower_list
+-- Table structure for follow
 -- ----------------------------
 DROP TABLE IF EXISTS `follow`;
 CREATE TABLE `follow_and_follower_list` (

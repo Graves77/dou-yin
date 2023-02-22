@@ -1,5 +1,5 @@
 Name: video.rpc
-ListenOn: 127.0.0.1:8887
+ListenOn: 127.0.0.1:8889
 
 Etcd:
   Hosts:
