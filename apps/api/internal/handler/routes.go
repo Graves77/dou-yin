@@ -7,12 +7,18 @@ import (
 	"awesomeProject/dou-yin/apps/api/internal/handler/user"
 	"awesomeProject/dou-yin/apps/api/internal/handler/video"
 	"awesomeProject/dou-yin/apps/api/internal/svc"
+	"github.com/dvwright/xss-mw"
+	"github.com/gin-gonic/gin"
 
 	"github.com/zeromicro/go-zero/rest"
 	"net/http"
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	router := gin.Default()
+	var xssMdlwr xss.XssMw
+	router.Use(xssMdlwr.RemoveXss())
+
 	server.AddRoutes(
 		[]rest.Route{
 			{

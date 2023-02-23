@@ -8,15 +8,20 @@ package video
 
 import (
 	context "context"
+	"fmt"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	"io"
+	"mime/multipart"
+	"os"
 )
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
+const BasePath = "C://"
 
 // PublishVideoClient is the client API for PublishVideo service.
 //
@@ -138,4 +143,21 @@ var PublishVideo_ServiceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "video.proto",
+}
+
+func SaveFile(file multipart.File, header *multipart.FileHeader) bool {
+	filename := header.Filename
+	fmt.Println(header.Filename)
+	out, err := os.Create(BasePath + "/config/" + filename)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	defer out.Close()
+	_, err = io.Copy(out, file)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	return true
 }

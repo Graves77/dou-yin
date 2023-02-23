@@ -67,3 +67,11 @@ CacheRedis:
   - Host: 8.134.120.93:6379
     Type: node
     Pass: "000415"
+
+
+CDN:
+  AccessKey: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
+  SercetKey: HrzF0jDtZqG4YO4zkh1M9C-_TiCSTGDomOm_ZyUC
+  Bucket: orall
+  QiniuServer: cdn.orall.top
+

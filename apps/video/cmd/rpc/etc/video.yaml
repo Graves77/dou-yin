@@ -24,3 +24,4 @@ CacheRedis:
 JwtAuth:
   AccessSecret: cLzj9gD8NkpV7-y3xi0zD-cviVvu4IXHHrvGTgVA
   AccessExpire: 86400
+
